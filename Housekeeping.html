@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Housekeeping</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 10px 16px;
+      font-size: 16px;
+      background-color: #003366;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+      .header {
+      background-color: #003366; /* Dark blue */
+      color: white;
+      text-align: center;
+      padding: 10px 20px;
+      display: flex;
+    }
+      .header-title {
+      flex-grow: 1;
+      text-align: center;
+      margin: 0;
+      font-size: 40px;
+    }
+      .content {
+      padding: 20px;
+        
+  .highlighted-text {
+    color: Red;
+  }
+</style>
+
+</head>
+<body>
+
+    <div class="header">
+        <!-- Back button at the top -->
+  <button class="back-button" onclick="goBack()">←</button>
+        <h1 class="header-title">Housekeeping</h1>
+        
+    </div>
+ 
+    <p span style = "margin-left: 380px; margin-right:350px;">To request complimentary housekeeping, extra towels or bath amenities simply call or stop by the front desk and we'll be happy to help! For guests staying four nights or longer, a full clean will automatically be conducted every fifth day.</p>
+
+<p span style = "margin-left: 380px; margin-right:350px;">For all housekeeping requests, please dial 0.</p>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>

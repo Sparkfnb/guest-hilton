@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Food & Beverage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 10px 16px;
+      font-size: 16px;
+      background-color: #003366;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+      .header {
+      background-color: #003366; /* Dark blue */
+      color: white;
+      text-align: center;
+      padding: 10px 20px;
+      display: flex;
+    }
+      .header-title {
+      flex-grow: 1;
+      text-align: center;
+      margin: 0;
+      font-size: 40px;
+    }
+      .content {
+      padding: 20px;
+        
+  .highlighted-text {
+    color: Red;
+  }
+</style>
+
+</head>
+<body>
+
+    <div class="header">
+        <!-- Back button at the top -->
+  <button class="back-button" onclick="goBack()">←</button>
+        <h1 class="header-title">Food & Beverage</h1>
+        
+    </div>
+  
+  <h3><span style="background-color: #1BFC06;padding: 3px 88px;border-radius: 12px;">Dining Options</span></h3>
+    <p style="color: red;font-weight: bold;"> Hatmakers Restuarant</p>
+    <p>Open Daily from 6pm to 9pm</p>
+
+     <h3><span style="background-color: #1BFC06;padding: 3px 128px;border-radius: 12px;">Retail</span></h3>
+    <p style="color: red;font-weight: bold;"> Spark Shop</p>
+    <p style = "line-height: 1.2;"> Location: Next to our Milliners Cocktail Bar</p>
+    <p style="margin: 0; line-height: 1.2;">                              Hours: 24 hours</p>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>
