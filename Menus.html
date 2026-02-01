@@ -3,71 +3,104 @@
 <head>
   <title>Menus</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 0;
+    html, body {
       margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
       overflow: hidden;
-      height: 100%
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: #003366;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      z-index: 1000;
     }
 
     .back-button {
-      display: inline-block;
-      margin-bottom: 20px;
-      padding: 10px 16px;
-      font-size: 24px;
-      background-color: #003366;
-      color: white;
+      background: none;
       border: none;
-      text-decoration: none;
+      color: white;
+      font-size: 24px;
       cursor: pointer;
     }
-      .header {
-      position: fixed;
-      top: 0;
-      left:0;
-      right: 0;
-      background-color: #003366; /* Dark blue */
-      color: white;
-      align-items:center;
-      padding: 0px 10px;
-      display: flex;
-      height: 60px;
-      z-index: 1000;
-    }
-      .header-title {
+
+    .header-title {
       flex: 1;
       text-align: center;
       margin: 0;
       font-size: 26px;
     }
-      iframe{
-          positions: fixed;
-          top: 60px;
-          left: 0;
-          width:1000vw;
-          height: 100vh; /* Full screen height */
-          max-width: none;
-          max-height:none;
-          border: none;
-      }
+
+    #pdf-render {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100vw;
+      height: calc(100vh - 60px);
+      background: #ccc;
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    canvas {
+      max-width: 100%;
+      height: auto;
+    }
   </style>
 </head>
-
-    
 <body>
 
-   <div class="header">
-       <!-- Back button at the top -->
-  <button class="back-button" onclick="goBack()">←</button>
+  <div class="header">
+    <button class="back-button" onclick="goBack()">←</button>
     <h1 class="header-title">Menus</h1>
-       <div style="width: 70px;"></div>
-       </div>
-       <iframe src="Dinner_Menu.pdf#zoom=150" width="100vw" height="100vh" style="border:none;"></iframe>
+    <div style="width:40px;"></div>
+  </div>
+
+  <div id="pdf-render"></div>
+
+  <!-- PDF.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.311/pdf.min.js"></script>
   <script>
-    function goBack() {
-      window.history.back();
-  }
+    function goBack() { window.history.back(); }
+
+    const url = 'Dinner_Menu.pdf'; // your PDF path
+
+    const container = document.getElementById('pdf-render');
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.311/pdf.worker.min.js';
+
+    let pdfDoc = null;
+
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+      pdfDoc = pdf;
+      // render all pages
+      for (let i = 1; i <= pdf.numPages; i++) {
+        pdf.getPage(i).then(page => {
+          const canvas = document.createElement('canvas');
+          container.appendChild(canvas);
+          const context = canvas.getContext('2d');
+          const viewport = page.getViewport({ scale: 1 });
+          // scale to fit width
+          const scale = container.clientWidth / viewport.width;
+          const scaledViewport = page.getViewport({ scale });
+          canvas.height = scaledViewport.height;
+          canvas.width = scaledViewport.width;
+          page.render({ canvasContext: context, viewport: scaledViewport });
+        });
+      }
+    });
   </script>
+
 </body>
 </html>
