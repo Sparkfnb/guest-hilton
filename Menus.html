@@ -2,13 +2,14 @@
 <html>
 <head>
   <title>Menus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       font-family: Arial, sans-serif;
-      overflow: hidden; /* prevents scrollbars */
+      overflow: hidden;
     }
 
     /* Header */
@@ -22,6 +23,7 @@
       color: white;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       padding: 0 10px;
       z-index: 1000;
     }
@@ -38,17 +40,30 @@
       flex: 1;
       text-align: center;
       margin: 0;
-      font-size: 26px;
+      font-size: 22px;
     }
 
-    /* PDF iframe */
-    iframe {
-      position: fixed;
-      top: 60px; /* below header */
+    /* PDF container */
+    #pdf-container {
+      position: absolute;
+      top: 60px;
       left: 0;
       width: 100vw;
       height: calc(100vh - 60px);
-      border: none;
+      overflow-y: auto;
+      background-color: #ccc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+      touch-action: pinch-zoom; /* enable pinch zoom */
+    }
+
+    canvas {
+      max-width: 95%;
+      margin-bottom: 20px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+      touch-action: none;
     }
   </style>
 </head>
@@ -61,14 +76,42 @@
     <div style="width:40px;"></div>
   </div>
 
-  <!-- PDF iframe -->
-  <!-- #zoom=200 sets the PDF to 200% zoom -->
-  <iframe src="Dinner_Menu.pdf#zoom=110"></iframe>
+  <!-- PDF container -->
+  <div id="pdf-container"></div>
+
+  <!-- PDF.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.311/pdf.min.js"></script>
 
   <script>
-    function goBack() {
-      window.history.back();
-    }
+    function goBack() { window.history.back(); }
+
+    const url = 'Dinner_Menu.pdf'; // Your PDF file path
+    const container = document.getElementById('pdf-container');
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.311/pdf.worker.min.js';
+
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+      const numPages = pdf.numPages;
+
+      // Render all pages
+      for (let i = 1; i <= numPages; i++) {
+        pdf.getPage(i).then(page => {
+          const canvas = document.createElement('canvas');
+          container.appendChild(canvas);
+          const context = canvas.getContext('2d');
+
+          const viewport = page.getViewport({ scale: 1 });
+          const scale = container.clientWidth * 0.95 / viewport.width;
+          const scaledViewport = page.getViewport({ scale });
+
+          canvas.width = scaledViewport.width;
+          canvas.height = scaledViewport.height;
+
+          page.render({ canvasContext: context, viewport: scaledViewport });
+        });
+      }
+    });
   </script>
 
 </body>
+</html>
