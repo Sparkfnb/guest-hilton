@@ -8,9 +8,10 @@
       padding: 0;
       height: 100%;
       font-family: Arial, sans-serif;
-      overflow: hidden;
+      overflow: hidden; /* prevents scrollbars */
     }
 
+    /* Header */
     .header {
       position: fixed;
       top: 0;
@@ -40,67 +41,34 @@
       font-size: 26px;
     }
 
-    #pdf-render {
-      position: absolute;
-      top: 60px;
+    /* PDF iframe */
+    iframe {
+      position: fixed;
+      top: 60px; /* below header */
       left: 0;
       width: 100vw;
       height: calc(100vh - 60px);
-      background: #ccc;
-      overflow: auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    canvas {
-      max-width: 100%;
-      height: auto;
+      border: none;
     }
   </style>
 </head>
 <body>
 
+  <!-- Header -->
   <div class="header">
     <button class="back-button" onclick="goBack()">←</button>
     <h1 class="header-title">Menus</h1>
     <div style="width:40px;"></div>
   </div>
 
-  <div id="pdf-render"></div>
+  <!-- PDF iframe -->
+  <!-- #zoom=200 sets the PDF to 200% zoom -->
+  <iframe src="Dinner_Menu.pdf#zoom=200"></iframe>
 
-  <!-- PDF.js CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.311/pdf.min.js"></script>
   <script>
-    function goBack() { window.history.back(); }
-
-    const url = 'Dinner_Menu.pdf'; // your PDF path
-
-    const container = document.getElementById('pdf-render');
-
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.311/pdf.worker.min.js';
-
-    let pdfDoc = null;
-
-    pdfjsLib.getDocument(url).promise.then(pdf => {
-      pdfDoc = pdf;
-      // render all pages
-      for (let i = 1; i <= pdf.numPages; i++) {
-        pdf.getPage(i).then(page => {
-          const canvas = document.createElement('canvas');
-          container.appendChild(canvas);
-          const context = canvas.getContext('2d');
-          const viewport = page.getViewport({ scale: 1 });
-          // scale to fit width
-          const scale = container.clientWidth / viewport.width;
-          const scaledViewport = page.getViewport({ scale });
-          canvas.height = scaledViewport.height;
-          canvas.width = scaledViewport.width;
-          page.render({ canvasContext: context, viewport: scaledViewport });
-        });
-      }
-    });
+    function goBack() {
+      window.history.back();
+    }
   </script>
 
 </body>
-</html>
