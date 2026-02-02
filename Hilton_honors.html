@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Hilton Honors</title>
+
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <style>
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      padding: 20px;
       text-align: center;
     }
 
@@ -32,35 +36,37 @@
       flex-grow: 1;
       text-align: center;
       margin: 0;
-      font-size: 40px;
+      font-size: 32px;
     }
       .content {
       padding: 20px;
         
-  .highlighted-text {
-    color: Red;
-  }
+        .responsive-img {
+      width: 100%;
+      max-width: 1000px; /* limits size on laptop */
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
 </style>
-
 </head>
+  
 <body>
 
     <div class="header">
         <!-- Back button at the top -->
   <button class="back-button" onclick="goBack()">←</button>
         <h1 class="header-title">Hilton Honors</h1>
-        
     </div>
   
-  <h3><span style="background-color: #1BFC06;padding: 3px 88px;border-radius: 12px;">Dining Options</span></h3>
-    <p style="color: red;font-weight: bold;"> Hatmakers Restuarant</p>
-    <p>Open Daily from 6pm to 9pm</p>
+    <div class="content">
+    <img src="Honors_1.png" alt="Amenities" class="responsive-img">
+  </div>
 
-     <h3><span style="background-color: #1BFC06;padding: 3px 128px;border-radius: 12px;">Retail</span></h3>
-    <p style="color: red;font-weight: bold;"> Spark Shop</p>
-    <p style = "line-height: 1.2;"> Location: Next to our Milliners Cocktail Bar</p>
-    <p style="margin: 0; line-height: 1.2;">                              Hours: 24 hours</p>
-
+   <div class="content">
+    <img src="Honors_2.png" alt="Amenities" class="responsive-img">
+  </div>
+  
   <script>
     function goBack() {
       window.history.back();
