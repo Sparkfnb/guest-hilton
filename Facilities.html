@@ -10,7 +10,6 @@
     }
 
     .back-button {
-      display: inline-block;
       margin-bottom: 20px;
       padding: 10px 16px;
       font-size: 16px;
@@ -18,45 +17,50 @@
       color: white;
       border: none;
       border-radius: 5px;
-      text-decoration: none;
       cursor: pointer;
     }
-      .header {
-      background-color: #003366; /* Dark blue */
+
+    .header {
+      background-color: #003366;
       color: white;
-      text-align: center;
       padding: 10px 20px;
       display: flex;
+      align-items: center;
     }
-      .header-title {
-      flex-grow: 1;
-      text-align: center;
-      margin: 0;
-      font-size: 40px;
-    }
-      .content {
-      padding: 20px;
-        
-  .highlighted-text {
-    color: Red;
-  }
-</style>
 
+    .header-title {
+      flex-grow: 1;
+      font-size: 40px;
+      margin: 0;
+      text-align: center;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .highlighted-text {
+      color: red;
+    }
+  </style>
 </head>
+
 <body>
 
-    <div class="header">
-        <!-- Back button at the top -->
-  <button class="back-button" onclick="goBack()">←</button>
-        <h1 class="header-title">Amenities</h1>
+  <div class="header">
+    <button class="back-button" onclick="goBack()">←</button>
+    <h1 class="header-title">Amenities</h1>
+  </div>
 
-      <img src="Amenities.png" width="400">
-    </div>
+  <div class="content">
+    <img src="Amenities.png" alt="Amenities" width="400">
+  </div>
 
   <script>
     function goBack() {
       window.history.back();
     }
   </script>
+
 </body>
 </html>
