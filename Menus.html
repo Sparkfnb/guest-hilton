@@ -37,12 +37,14 @@
       font-size: 22px;
     }
 
+    /* Desktop PDF viewer */
     iframe {
       width: 100%;
       height: calc(100vh - 64px);
       border: none;
     }
 
+    /* Mobile menu buttons */
     .open-pdf {
       display: none;
       height: calc(100vh - 64px);
@@ -51,15 +53,18 @@
     }
 
     .open-pdf a {
+      display: block;
+      width: 80%;
+      margin: 16px auto;
       font-size: 20px;
       color: #003366;
       text-decoration: none;
       border: 2px solid #003366;
-      padding: 12px 20px;
+      padding: 14px 0;
       border-radius: 6px;
     }
 
-    /* Mobile detection via CSS */
+    /* Mobile breakpoint */
     @media (max-width: 768px) {
       iframe {
         display: none;
@@ -79,22 +84,15 @@
     <div style="width: 22px;"></div>
   </div>
 
-  <!-- Desktop -->
+  <!-- Desktop PDFs -->
   <iframe src="Dinner_Menu.pdf"></iframe>
-
-  <!-- Mobile -->
-  <div class="open-pdf">
-    <a href="Dinner_Menu.pdf" target="_blank">Dinner Menu</a>
-  </div>
-
-  <!-- Desktop -->
   <iframe src="Breakfast.pdf"></iframe>
 
-  <!-- Mobile -->
+  <!-- Mobile buttons -->
   <div class="open-pdf">
+    <a href="Dinner_Menu.pdf" target="_blank">Dinner Menu</a>
     <a href="Breakfast.pdf" target="_blank">Breakfast Menu</a>
   </div>
-
 
   <script>
     function goBack() {
